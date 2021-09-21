@@ -1,0 +1,28 @@
+{
+    "products": [
+        {
+            "name": "Winter Coat",
+            "imageURL": "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y29hdHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+            "brand": "OSIRUS",
+            "price": 100
+        },
+        {
+            "name": "Cotton Sweatshirt",
+            "imageURL": "https://images.unsplash.com/photo-1556172732-bcded74ff3a2?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NTd8fHN3ZWF0c2hpcnR8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+            "brand": "OSIRUS",
+            "price": 49
+        },
+        {
+            "name": "Cotton Pant",
+            "imageURL": "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTl8fHBhbnR8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+            "brand": "OSIRUS",
+            "price": 58
+        },
+        {
+            "name": "Green Sweater",
+            "imageURL": "https://images.unsplash.com/photo-1536992266094-82847e1fd431?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8c3dlYXRlcnxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+            "brand": "OSIRUS",
+            "price": 69
+        }
+    ]
+}
