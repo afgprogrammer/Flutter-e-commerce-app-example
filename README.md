@@ -24,8 +24,8 @@ flutter run
 ```
 
 ## Screenshot
-<!-- ### Home Page
-<img src="assets/screenshots/home-page.png" /> -->
+### Home Page
+<img src="assets/screenshots/home-page.png" />
 
 ## Links
 
