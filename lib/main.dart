@@ -20,7 +20,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late PageController _myPage;
+  late PageController _pageController;
   int _selectedPage = 0;
 
   List<Widget> pages = [
@@ -33,14 +33,14 @@ class _HomePageState extends State<HomePage> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedPage = index;
-      _myPage.jumpToPage(index);
+      _pageController.jumpToPage(index);
     });
   }
 
   @override
   void initState() {
     // TODO: implement initState
-    _myPage = PageController(initialPage: 0);
+    _pageController = PageController(initialPage: 0);
 
     super.initState();
   }
@@ -49,7 +49,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView(
-        controller: _myPage,
+        onPageChanged: (index) => setState(() { _selectedPage = index; }),
+        controller: _pageController,
         children: [
           ...pages
         ],
