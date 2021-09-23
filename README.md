@@ -12,6 +12,8 @@ class Afgprogrammer extends Flutter100DaysOfCode {
 }
 ```
 
+Images from: [Unsplash](https://unsplash.com)
+
 ## Previous Designs
 [Checkout my Youtube channel](https://youtube.com/afgprogrammer)
 
@@ -24,8 +26,8 @@ flutter run
 ```
 
 ## Screenshot
-<!-- ### Home Page
-<img src="assets/screenshots/home-page.png" /> -->
+### Home Page
+<img src="assets/screenshots/home-page.png" />
 
 ## Links
 
