@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:day34/animation/FadeAnimation.dart';
 import 'package:day34/models/product.dart';
+import 'package:day34/pages/product_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -268,68 +269,73 @@ class _ExplorePageState extends State<ExplorePage> with TickerProviderStateMixin
   productCart(Product product) {
     return AspectRatio(
       aspectRatio: 1 / 1,
-      child: FadeAnimation(1.5, Container(
-        margin: EdgeInsets.only(right: 20, bottom: 25),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: Colors.white,
-          boxShadow: [BoxShadow(
-            offset: Offset(5, 10),
-            blurRadius: 15,
-            color: Colors.grey.shade200,
-          )],
-        ),
-        padding: EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              height: 150,
-              child: Stack(
-                children: [
-                  Container(
-                    width: double.infinity,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(15),
-                      child: Image.network(product.imageURL, fit: BoxFit.cover)
-                    ),
-                  ),
-                  // Add to cart button
-                  Positioned(
-                    right: 5,
-                    bottom: 5,
-                    child: MaterialButton(
-                      color: Colors.black,
-                      minWidth: 45,
-                      height: 45,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50)
+      child: FadeAnimation(1.5, GestureDetector(
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => ProductViewPage(product: product,)));
+        },
+        child: Container(
+          margin: EdgeInsets.only(right: 20, bottom: 25),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.white,
+            boxShadow: [BoxShadow(
+              offset: Offset(5, 10),
+              blurRadius: 15,
+              color: Colors.grey.shade200,
+            )],
+          ),
+          padding: EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 150,
+                child: Stack(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: Image.network(product.imageURL, fit: BoxFit.cover)
                       ),
-                      onPressed: () {
-                        addToCartModal();
-                      },
-                      padding: EdgeInsets.all(5),
-                      child: Center(child: Icon(Icons.shopping_cart, color: Colors.white, size: 20,)),
                     ),
-                  )
+                    // Add to cart button
+                    Positioned(
+                      right: 5,
+                      bottom: 5,
+                      child: MaterialButton(
+                        color: Colors.black,
+                        minWidth: 45,
+                        height: 45,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50)
+                        ),
+                        onPressed: () {
+                          addToCartModal();
+                        },
+                        padding: EdgeInsets.all(5),
+                        child: Center(child: Icon(Icons.shopping_cart, color: Colors.white, size: 20,)),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(height: 20,),
+              Text(product.name,
+                style: TextStyle(color: Colors.black, fontSize: 18,),
+              ),
+              SizedBox(height: 10,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(product.brand, style: TextStyle(color: Colors.orange.shade400, fontSize: 14,),),
+                  Text("\$ " +product.price.toString() + '.00',
+                    style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w800),
+                  ),
                 ],
               ),
-            ),
-            SizedBox(height: 20,),
-            Text(product.name,
-              style: TextStyle(color: Colors.black, fontSize: 18,),
-            ),
-            SizedBox(height: 10,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(product.brand, style: TextStyle(color: Colors.orange.shade400, fontSize: 14,),),
-                Text("\$ " +product.price.toString() + '.00',
-                  style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w800),
-                ),
-              ],
-            ),
-          ],
+            ],
+          ),
         ),
       )),
     );
