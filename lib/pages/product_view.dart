@@ -190,7 +190,6 @@ class _ProductViewPageState extends State<ProductViewPage> {
                   ],
                 )
               )
-
             ])
           ),
         ]
