@@ -29,6 +29,9 @@ flutter run
 ### Home Page
 <img src="assets/screenshots/home-page.png" />
 
+### Filter Modal
+<img src="assets/screenshots/filter-modal.png" />
+
 ## Links
 
 * [Website](https://afgprogrammer.com)
