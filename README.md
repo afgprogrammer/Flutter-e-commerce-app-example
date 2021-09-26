@@ -35,6 +35,9 @@ flutter run
 ### Product View
 <img src="assets/screenshots/product-view.png" />
 
+### Cart Page
+<img src="assets/screenshots/cart-page.png" />
+
 ## Links
 
 * [Website](https://afgprogrammer.com)
