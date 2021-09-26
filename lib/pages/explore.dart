@@ -519,7 +519,7 @@ class _ExplorePageState extends State<ExplorePage> with TickerProviderStateMixin
                     }
                   ),
                   SizedBox(height: 20,),
-                  button('Filter')
+                  button('Filter', () {})
                 ],
               ),
             );
@@ -608,7 +608,21 @@ class _ExplorePageState extends State<ExplorePage> with TickerProviderStateMixin
                   ),
                 ),
                 SizedBox(height: 20,),
-                button('Add to Cart')
+                button('Add to Cart', () {
+                  Navigator.pop(context);
+
+                  // Let's show a snackbar when an item is added to the cart
+                  final snackbar = SnackBar(
+                    content: Text("Item added to cart"),
+                    duration: Duration(seconds: 5),
+                    action: SnackBarAction(
+                      label: 'Undo',
+                      onPressed: () {},
+                    ),
+                  );
+
+                  ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                })
               ],
             ),
           );
@@ -617,15 +631,9 @@ class _ExplorePageState extends State<ExplorePage> with TickerProviderStateMixin
     );
   }
 
-  button(String text) {
+  button(String text, Function onPressed) {
     return MaterialButton(
-      onPressed: () {
-        Navigator.pop(context);
-        setState(() {
-          _selectedColor = 0;
-          _selectedSize = 1;
-        });
-      },
+      onPressed: () => onPressed(),
       height: 50,
       elevation: 0,
       splashColor: Colors.yellow[700],
