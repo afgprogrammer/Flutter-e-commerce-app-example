@@ -32,6 +32,9 @@ flutter run
 ### Filter Modal
 <img src="assets/screenshots/filter-modal.png" />
 
+### Product View
+<img src="assets/screenshots/product-view.png" />
+
 ## Links
 
 * [Website](https://afgprogrammer.com)
