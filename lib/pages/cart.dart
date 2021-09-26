@@ -17,6 +17,7 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   List<dynamic> cartItems = [];
   List<int> cartItemCount = [1, 1, 1, 1];
+  int totalPrice = 0;
 
   Future<void> fetchItems() async {
     final String response = await rootBundle.loadString('assets/products.json');
@@ -25,6 +26,14 @@ class _CartPageState extends State<CartPage> {
     setState(() {
       cartItems = data['products']
         .map((data) => Product.fromJson(data)).toList();
+      
+      sumTotal();
+    });
+  }
+
+  sumTotal() {
+    cartItems.forEach((item) {
+      totalPrice = item.price + totalPrice;
     });
   }
 
@@ -85,7 +94,7 @@ class _CartPageState extends State<CartPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text('Total', style: TextStyle(fontSize: 20)),
-                  Text('\$200', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))
+                  Text('\$${totalPrice + 5.99}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))
                 ],
               ),
             )),
@@ -180,6 +189,7 @@ class _CartPageState extends State<CartPage> {
                       setState(() {
                         if (cartItemCount[index] > 1) {
                           cartItemCount[index]--;
+                          totalPrice = totalPrice - product.price;
                         }
                       });
                     },
@@ -194,6 +204,7 @@ class _CartPageState extends State<CartPage> {
                     onPressed: () {
                       setState(() {
                         cartItemCount[index]++;
+                        totalPrice = totalPrice + product.price;
                       });
                     },
                     shape: CircleBorder(),
