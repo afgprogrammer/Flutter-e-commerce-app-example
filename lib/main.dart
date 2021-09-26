@@ -1,3 +1,4 @@
+import 'package:day34/pages/cart.dart';
 import 'package:day34/pages/explore.dart';
 import 'package:day34/pages/notification.dart';
 import 'package:day34/pages/profile.dart';
@@ -26,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   List<Widget> pages = [
     ExplorePage(),
     SearchPage(),
-    NotificationPage(),
+    CartPage(),
     ProfilePage()
   ];
 
@@ -44,7 +45,7 @@ class _HomePageState extends State<HomePage> {
 
     super.initState();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,19 +62,19 @@ class _HomePageState extends State<HomePage> {
         onItemSelected: (index) => _onItemTapped(index),
         items: [
           FlashyTabBarItem(
-            icon: Icon(Icons.home_outlined, size: 25),
+            icon: Icon(Icons.home_outlined, size: 23),
             title: Text('Home'),
           ),
           FlashyTabBarItem(
-            icon: Icon(Icons.search, size: 25),
+            icon: Icon(Icons.search, size: 23),
             title: Text('Search'),
           ),
           FlashyTabBarItem(
-            icon: Icon(Icons.notifications_outlined, size: 25),
-            title: Text('Notifications'),
+            icon: Icon(Icons.shopping_bag_outlined, size: 23),
+            title: Text('Cart'),
           ),
           FlashyTabBarItem(
-            icon: Icon(Icons.account_circle_outlined, size: 25,),
+            icon: Icon(Icons.account_circle_outlined, size: 23,),
             title: Text('Profile'),
           ),
         ],
