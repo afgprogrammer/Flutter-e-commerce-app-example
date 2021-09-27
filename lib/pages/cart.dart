@@ -6,6 +6,7 @@ import 'package:day34/pages/product_view.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({ Key? key }) : super(key: key);
@@ -14,8 +15,8 @@ class CartPage extends StatefulWidget {
   _CartPageState createState() => _CartPageState();
 }
 
-class _CartPageState extends State<CartPage> {
-  List<dynamic> cartItems = [];
+class _CartPageState extends State<CartPage> with TickerProviderStateMixin {
+  late List<dynamic> cartItems = [];
   List<int> cartItemCount = [1, 1, 1, 1];
   int totalPrice = 0;
 
@@ -23,12 +24,10 @@ class _CartPageState extends State<CartPage> {
     final String response = await rootBundle.loadString('assets/products.json');
     final data = await json.decode(response);
 
-    setState(() {
-      cartItems = data['products']
-        .map((data) => Product.fromJson(data)).toList();
-      
-      sumTotal();
-    });
+    cartItems = data['products']
+      .map((data) => Product.fromJson(data)).toList();      
+
+    sumTotal();
   }
 
   sumTotal() {
@@ -40,8 +39,9 @@ class _CartPageState extends State<CartPage> {
   @override
   void initState() {
     // TODO: implement initState
-    fetchItems();
     super.initState();
+
+    fetchItems().whenComplete(() => setState(() {}));
   }
 
   @override
@@ -52,82 +52,112 @@ class _CartPageState extends State<CartPage> {
         backgroundColor: Colors.transparent,
         title: Text('My Cart', style: TextStyle(color: Colors.black)),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              height: MediaQuery.of(context).size.height * 0.53,
-              child: ListView.builder(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            height: MediaQuery.of(context).size.height * 0.53,
+            child: cartItems.length > 0 ? FadeAnimation(1.4, 
+              AnimatedList(
                 scrollDirection: Axis.vertical,
-                itemCount: cartItems.length,
-                itemBuilder: (context, index) {
-                  return cartItem(cartItems[index], index);
+                initialItemCount: cartItems.length,
+                itemBuilder: (context, index, animation) {
+                  return Slidable(
+                    actionPane: SlidableDrawerActionPane(),
+                    secondaryActions: [
+                      MaterialButton(
+                        color: Colors.red.withOpacity(0.15),
+                        elevation: 0,
+                        height: 60,
+                        minWidth: 60,
+                        shape: CircleBorder(),
+                        child: Icon(Icons.delete, color: Colors.red, size: 30,),
+                        onPressed: () {
+                          setState(() {
+                            totalPrice = totalPrice - (int.parse(cartItems[index].price.toString()) * cartItemCount[index]);
+
+                            AnimatedList.of(context).removeItem(index, (context, animation) {
+                              return cartItem(cartItems[index], index, animation);
+                            });
+                            
+                            cartItems.removeAt(index);
+                            cartItemCount.removeAt(index);
+                          });
+                        },
+                      ),
+                    ],
+                    child: cartItem(cartItems[index], index, animation),
+                  );
                 }
               ),
-            ),
-            SizedBox(height: 30),
-            FadeAnimation(1.2, 
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text('Shipping', style: TextStyle(fontSize: 20)),
-                    Text('\$5.99', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))
-                  ],
-                ),
-              ),
-            ),
-            FadeAnimation(1.3, Padding(
-              padding: EdgeInsets.all(20.0),
-              child: DottedBorder(
-                color: Colors.grey.shade400,
-                dashPattern: [10, 10],
-                padding: EdgeInsets.all(0),
-                child: Container()
-              ),
-            )),
-            FadeAnimation(1.3, Container(
+            ) : Container(),
+          ),
+          SizedBox(height: 30),
+          FadeAnimation(1.2, 
+            Container(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('Total', style: TextStyle(fontSize: 20)),
-                  Text('\$${totalPrice + 5.99}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))
+                  Text('Shipping', style: TextStyle(fontSize: 20)),
+                  Text('\$5.99', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))
                 ],
               ),
-            )),
-            SizedBox(height: 10),
-            FadeAnimation(1.4, Padding(
-              padding: EdgeInsets.all(20.0),
-              child: MaterialButton(
-                onPressed: () {},
-                height: 50,
-                elevation: 0,
-                splashColor: Colors.yellow[700],
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)
-                ),
-                color: Colors.yellow[800],
-                child: Center(
-                  child: Text("Payment", style: TextStyle(color: Colors.white, fontSize: 18),),
-                ),
+            ),
+          ),
+          FadeAnimation(1.3, Padding(
+            padding: EdgeInsets.all(20.0),
+            child: DottedBorder(
+              color: Colors.grey.shade400,
+              dashPattern: [10, 10],
+              padding: EdgeInsets.all(0),
+              child: Container()
+            ),
+          )),
+          FadeAnimation(1.3, Container(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text('Total', style: TextStyle(fontSize: 20)),
+                Text('\$${totalPrice + 5.99}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))
+              ],
+            ),
+          )),
+          SizedBox(height: 10),
+          FadeAnimation(1.4, Padding(
+            padding: EdgeInsets.all(20.0),
+            child: MaterialButton(
+              onPressed: () {},
+              height: 50,
+              elevation: 0,
+              splashColor: Colors.yellow[700],
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10)
               ),
-            ))
-          ]
-        )      
-      )
+              color: Colors.yellow[800],
+              child: Center(
+                child: Text("Payment", style: TextStyle(color: Colors.white, fontSize: 18),),
+              ),
+            ),
+          ))
+        ]
+      )      
     );
   }
 
-  cartItem(Product product, int index) {
+  cartItem(Product product, int index, animation) {
     return GestureDetector(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) => ProductViewPage(product: product)));
       },
-      child: FadeAnimation(1, 
-        Container(
+      child: SlideTransition(
+        position: Tween<Offset>(
+          begin: const Offset(-1, 0),
+          end: Offset.zero
+        ).animate(animation),
+        child: Container(
           margin: EdgeInsets.only(bottom: 20),
           padding: EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(

@@ -30,6 +30,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   flashy_tab_bar: ^0.0.3
   simple_animations: ^1.3.3 
+  dotted_border: ^2.0.0+1
+  flutter_slidable: ^0.6.0
 
 dev_dependencies:
   flutter_test:
