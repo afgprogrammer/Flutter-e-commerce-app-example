@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:day34/animation/FadeAnimation.dart';
 import 'package:day34/models/product.dart';
+import 'package:day34/pages/payment.dart';
 import 'package:day34/pages/product_view.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -129,7 +130,9 @@ class _CartPageState extends State<CartPage> with TickerProviderStateMixin {
           FadeAnimation(1.4, Padding(
             padding: EdgeInsets.all(20.0),
             child: MaterialButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => PaymentPage()));
+              },
               height: 50,
               elevation: 0,
               splashColor: Colors.yellow[700],
@@ -138,7 +141,7 @@ class _CartPageState extends State<CartPage> with TickerProviderStateMixin {
               ),
               color: Colors.yellow[800],
               child: Center(
-                child: Text("Payment", style: TextStyle(color: Colors.white, fontSize: 18),),
+                child: Text("Checkout", style: TextStyle(color: Colors.white, fontSize: 18),),
               ),
             ),
           ))
