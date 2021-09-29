@@ -38,6 +38,9 @@ flutter run
 ### Cart Page
 <img src="assets/screenshots/cart-page.png" />
 
+### Payment Page
+<img src="assets/screenshots/payment-page.png" />
+
 ## Links
 
 * [Website](https://afgprogrammer.com)
