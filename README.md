@@ -12,7 +12,9 @@ class Afgprogrammer extends Flutter100DaysOfCode {
 }
 ```
 
-Images from: [Unsplash](https://unsplash.com)
+Assets 
+* [Unsplash](https://unsplash.com)
+* [icon8](https://icons8.com)
 
 ## Previous Designs
 [Checkout my Youtube channel](https://youtube.com/afgprogrammer)
